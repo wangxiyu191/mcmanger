@@ -40,7 +40,7 @@ func Start(first string, second string) {
 			continue
 		}
 		if qcStatus != "running" {
-			log.Println("[Monitor]Server is not Running.")
+			//log.Println("[Monitor]Server is not Running.")
 			continue
 		}
 

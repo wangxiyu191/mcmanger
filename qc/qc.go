@@ -29,7 +29,7 @@ func Init(z string, id string, secret string, server string) {
 	client = instance.NewClient(zone, id, secret)
 }
 
-func Boot() (err error) {
+func Start() (err error) {
 	_, err = client.StartInstances(qingcloud.Params{
 		{"instances.1", serverId},
 	})

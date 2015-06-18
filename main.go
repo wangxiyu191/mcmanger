@@ -7,6 +7,7 @@ import (
 	"mcmanger/mc"
 	"mcmanger/monitor"
 	"mcmanger/qc"
+	"mcmanger/web"
 )
 
 func main() {
@@ -22,21 +23,10 @@ func main() {
 		conf.String("QingCloud::ServerId"),
 	)
 	mc.Init(conf.String("Minecraft::Address"))
-	/*
-		qcStatus, err := qc.Status()
-		fmt.Println("QingCloud Instances:" + qcStatus)
 
-		mcStatus, err := mc.Status()
-		fmt.Printf("%d player online.\n", mcStatus.Players.Online)
-		for _, player := range mcStatus.Players.Sample {
-			fmt.Println(player.ID + "  " + player.Name)
-		}
-
-		err = qc.Boot()
-		fmt.Println(err)
-	*/
-	monitor.Start(
+	go monitor.Start(
 		conf.String("Monitor::FirstDuration"),
 		conf.String("Monitor::SecondDuration"),
 	)
+	web.Start(conf.DefaultInt("Web::Port", 8123))
 }
