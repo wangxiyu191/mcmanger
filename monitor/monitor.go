@@ -53,6 +53,7 @@ func Start(first string, second string) {
 		if playerNum == 0 {
 			if nonePlayerTimes == 1 {
 				log.Println("[Monitor]第二次发现无人在线，停机")
+				nonePlayerTimes = 0
 				qc.Stop()
 			} else {
 				log.Println("[Monitor]第一次发现无人在线，进入第二阶段监测")

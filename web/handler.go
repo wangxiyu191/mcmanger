@@ -32,16 +32,17 @@ func statusHandler() (int, string) {
 		return 500, "获取青云实例状态发生错误。"
 	}
 	response += fmt.Sprintln("青云示例状态:" + qcStatus)
-
-	mcStatus, err := mc.Status()
-	if err != nil {
-		log.Println(err)
-		return 500, "获取青云实例状态发生错误。"
+	if qcStatus == "running" {
+		mcStatus, err := mc.Status()
+		if err != nil {
+			log.Println(err)
+			return 500, "获取Minecraft实例状态发生错误。"
+		}
+		response += fmt.Sprintf("%d人正在进行游戏:\n", mcStatus.Players.Online)
+		for _, player := range mcStatus.Players.Sample {
+			response += fmt.Sprintln(player.Name)
+		}
 	}
-	response += fmt.Sprintf("%d人正在进行游戏:\n", mcStatus.Players.Online)
-	for _, player := range mcStatus.Players.Sample {
-		response += fmt.Sprintln(player.Name)
-	}
-
 	return 200, response
+
 }
